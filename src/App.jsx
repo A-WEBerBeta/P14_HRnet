@@ -7,7 +7,7 @@ function App() {
     <div>
       <nav>
         <Link to="/create">Create Employee</Link>
-        <Link to="/employees">Employee List</Link>
+        <Link to="/employees">View Current Employees</Link>
       </nav>
 
       <Routes>
