@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import DateInput from "../components/DateInput";
+import Footer from "../components/Footer";
 import Modal from "../components/Modal";
+import Select from "../components/Select";
+import { US_STATES_OPTIONS } from "../data/usStates";
 import { addEmployee } from "../store/employeesSlice";
 
 export default function CreateEmployee() {
@@ -16,10 +20,10 @@ export default function CreateEmployee() {
   // Bloc Adresse
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("Alabama");
+  const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
 
-  const [department, setDepartment] = useState("Sales");
+  const [department, setDepartment] = useState("");
 
   const [error, setError] = useState("");
 
@@ -62,12 +66,12 @@ export default function CreateEmployee() {
     setCity("");
     setState("");
     setZipCode("");
-    setDepartment("Sales");
+    setDepartment("");
     setError("");
   }
 
   return (
-    <div>
+    <div className="create-container">
       <h1>HRnet</h1>
       <h2>Create Employee</h2>
       <form onSubmit={handleSubmit}>
@@ -87,21 +91,15 @@ export default function CreateEmployee() {
           required
         />
         {/* Dates */}
-        <label htmlFor="dateOfBirth">Date of Birth</label>
-        <input
-          type="date"
-          id="dateOfBirth"
-          name="dateOfBirth"
+        <DateInput
+          label="Date of Birth"
           value={dateOfBirth}
-          onChange={(e) => setDateOfBirth(e.target.value)}
+          onChange={setDateOfBirth}
         />
-        <label htmlFor="startDate">Start Date</label>
-        <input
-          type="date"
-          id="startDate"
-          name="startDate"
+        <DateInput
+          label="Start Date"
           value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          onChange={setStartDate}
         />
         {/* Adresse */}
         <div className="address-section">
@@ -118,19 +116,15 @@ export default function CreateEmployee() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
-          <label htmlFor="state">State</label>
-          <select
+          <Select
+            label="State"
             id="state"
             value={state}
             onChange={(e) => setState(e.target.value)}
-          >
-            <option>Alabama</option>
-            <option>California</option>
-            <option>Florida</option>
-            <option>New York</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
+            options={US_STATES_OPTIONS}
+            placeholder="Choose a state..."
+            className=""
+          />
           <label htmlFor="zipCode">Zip Code</label>
           <input
             type="number"
@@ -140,24 +134,36 @@ export default function CreateEmployee() {
           />
         </div>
         {/* Department */}
-        <label htmlFor="department">Department</label>
-        <select
+        <Select
+          label="Department"
           id="department"
           value={department}
           onChange={(e) => setDepartment(e.target.value)}
-        >
-          <option>Sales</option>
-          <option>Marketing</option>
-          <option>Engineering</option>
-          <option>Human Resources</option>
-          <option>Legal</option>
-        </select>
+          options={[
+            "Sales",
+            "Marketing",
+            "Engineering",
+            "Human Resources",
+            "Legal",
+          ]}
+          placeholder="Choose a department..."
+          className=""
+        />
         {error && <div role="alert">{error}</div>}
         <button type="submit" className="btn btn-primary">
           Add employee
         </button>
       </form>
-      <Modal open={showModal} onClose={() => setShowModal(false)} />
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="Employee created!"
+        className=""
+        animation="zoom"
+      >
+        <p>Your employee has been added successfully.</p>
+      </Modal>
+      <Footer />
     </div>
   );
 }

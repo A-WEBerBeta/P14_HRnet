@@ -1,58 +1,57 @@
-import { useDispatch, useSelector } from "react-redux";
-import { clearAll, removeEmployee } from "../store/employeesSlice";
+import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
+import Footer from "../components/Footer";
 
 export default function EmployeeList() {
-  const employees = useSelector((state) => state.employees.items);
-  const dispatch = useDispatch();
+  const rows = useSelector((state) => state.employees.items);
 
-  function handleDelete(id) {
-    if (!confirm("Confirm delete ?")) return;
-    dispatch(removeEmployee(id));
-  }
-
-  function handleClear() {
-    if (!confirm("Delete ALL employees ?")) return;
-    dispatch(clearAll());
-  }
+  const columns = [
+    { field: "firstName", headerName: "First Name", flex: 1 },
+    { field: "lastName", headerName: "Last Name", flex: 1 },
+    {
+      field: "startDate",
+      headerName: "Start Date",
+      flex: 1,
+      type: "date",
+      valueGetter: (value) => (value ? new Date(value) : null),
+    },
+    { field: "department", headerName: "Department", flex: 1 },
+    {
+      field: "dateOfBirth",
+      headerName: "Date of Birth",
+      flex: 1,
+      type: "date",
+      valueGetter: (value) => (value ? new Date(value) : null),
+    },
+    { field: "street", headerName: "Street", flex: 1 },
+    { field: "city", headerName: "City", flex: 1 },
+    { field: "state", headerName: "State", flex: 1 },
+    { field: "zipCode", headerName: "Zip Code", flex: 1 },
+  ];
 
   return (
-    <div>
-      <h1>Current Employees</h1>
-
-      <div>
-        <button className="btn btn-secondary" onClick={handleClear}>
-          Clear All
-        </button>
+    <>
+      <h2>Current Employees</h2>
+      <div style={{ height: 720, width: "100%", padding: "1rem" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSizeOptions={[5, 10, 20, 50]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10, page: 0 } },
+          }}
+          disableRowSelectionOnClick
+          showToolbar
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 300 },
+            },
+          }}
+        />
       </div>
 
-      {employees.length === 0 ? (
-        <p>No employees yet.</p>
-      ) : (
-        <ul>
-          {employees.map((e) => (
-            <li key={e.id}>
-              <div>
-                {e.firstName} {e.lastName}
-              </div>
-              <div>
-                Date of Birth: {e.dateOfBirth || "-"} | Start:{" "}
-                {e.startDate || "-"}
-              </div>
-              <div>
-                Address: {e.street || "-"}, {e.city || "-"}, {e.state || "-"},{" "}
-                {e.zipCode || "-"}
-              </div>
-              <div>Department: {e.department || "-"}</div>
-              <button
-                className="btn btn-danger"
-                onClick={() => handleDelete(e.id)}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      <Footer />
+    </>
   );
 }

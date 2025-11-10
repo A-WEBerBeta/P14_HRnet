@@ -7,10 +7,11 @@ function App() {
     <div>
       <nav>
         <Link to="/create">Create Employee</Link>
-        <Link to="/employees">View Current Employees</Link>
+        <Link to="/employees">Employee List</Link>
       </nav>
 
       <Routes>
+        <Route path="/" element={<CreateEmployee />} />
         <Route path="/create" element={<CreateEmployee />} />
         <Route path="/employees" element={<EmployeeList />} />
       </Routes>

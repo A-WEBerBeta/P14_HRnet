@@ -1,29 +1,198 @@
+/* ================================
+   Variables par défaut
+================================ */
 .modal-overlay {
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --modal-bg: #fff;
+  --modal-fg: #222;
+  --modal-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --modal-radius: 8px;
+
+  --close-size: 32px;
+  --close-bg: rgba(0, 0, 0, 0.85);
+  --close-fg: #fff;
+  --close-hover-bg: rgba(0, 0, 0, 1);
+  --close-focus-ring: 0 0 0 2px rgba(255, 255, 255, 0.4);
+
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: var(--overlay-bg);
+  backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 999;
+}
+
+/* ================================
+   Conteneur principal
+================================ */
+.modal-container {
+  background: var(--modal-bg);
+  color: var(--modal-fg);
+  width: calc(100% - 2rem);
+  max-width: 480px;
+  border-radius: var(--modal-radius);
+  padding: 1rem;
+  position: relative;
+  box-shadow: var(--modal-shadow);
+}
+
+/* ================================
+   Bouton de fermeture
+================================ */
+.modal-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+
+  width: var(--close-size);
+  height: var(--close-size);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--close-bg);
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 0 2px rgba(0,0,0,0.1);
+  transition: background 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: var(--close-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 3px 8px rgba(0,0,0,0.3),
+    0 0 2px rgba(0,0,0,0.1);
+}
+
+.modal-close:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.25),
+    0 0 1px rgba(0,0,0,0.1);
+}
+
+.modal-close:focus-visible {
+  outline: none;
+    box-shadow: 
+    0 0 0 3px rgba(0,0,0,0.4),
+    0 2px 6px rgba(0,0,0,0.25);
+}
+
+.icon-close {
+  width: 18px;
+  height: 18px;
+  display: block;
+  pointer-events: none;
+}
+
+.icon-close path {
+  stroke: var(--close-fg);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ================================
+   Titre et contenu
+================================ */
+.modal-title {
+  margin: 0 2rem 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--modal-fg);
 }
 
 .modal-content {
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  text-align: center;
+  margin-top: 0.25rem;
+  color: var(--modal-fg);
 }
 
-.modal-content p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+/* ================================
+   Animations
+================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.modal-content button {
-  margin-top: 0.5rem;
+/* Overlay (léger fondu quelle que soit l'anim, sauf none) */
+.modal-overlay[data-animation="fade"],
+.modal-overlay[data-animation="zoom"],
+.modal-overlay[data-animation="slide-up"] {
+  animation: fadeIn 180ms ease-out;
+}
+
+/* Container selon l’option choisie */
+.modal-container[data-animation="fade"] {
+  animation: fadeIn 400ms ease-out;
+}
+.modal-container[data-animation="zoom"] {
+  animation: zoomIn 400ms ease-out;
+}
+.modal-container[data-animation="slide-up"] {
+  animation: slideUpIn 400ms ease-out;
+}
+
+/* Pas d’animation */
+.modal-overlay[data-animation="none"],
+.modal-container[data-animation="none"] {
+  animation: none;
+}
+
+/* ================================
+   Exemples de thèmes personnalisables
+================================ */
+
+/* Thème succès */
+.modal-success {
+  --modal-bg: #ecfdf5;
+  --modal-fg: #065f46;
+  --overlay-bg: rgba(0, 0, 0, 0.35);
+  --close-bg: #065f46;
+  --close-fg: #ecfdf5;
+  --close-hover-bg: #064e3b;
+}
+
+/* Thème sombre */
+.modal-dark {
+  --overlay-bg: rgba(0, 0, 0, 0.7);
+  --modal-bg: #111;
+  --modal-fg: #eee;
+  --modal-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  --close-bg: rgba(255, 255, 255, 0.85);
+  --close-fg: #000000;
+  --close-hover-bg: rgba(255, 255, 255, 1);
 }
