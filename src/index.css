@@ -1,3 +1,7 @@
+/* ================================
+   Général
+================================ */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,14 +9,14 @@
 }
 
 html, body {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: Roboto, sans-serif;
   background-color: #f8f9fa;
   color: #222;
 }
 
 #root {
   margin: 0 auto;
-  padding: 4rem;
+  padding: 2.5rem;
   max-height: 100vh;
 }
 
@@ -47,6 +51,9 @@ h1, h2 {
   align-items: center;
 }
 
+/* ================================
+   Formulaire
+================================ */
 
 form {
   width: 600px;
@@ -58,9 +65,20 @@ form {
   border-radius: 8px;
 }
 
+.form-identity {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 label {
   font-weight: 500;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 
 input, select, button {
@@ -68,6 +86,7 @@ input, select, button {
   padding: 0.4rem 0.6rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-bottom: 0.5rem;
 }
 
 input:focus, select:focus {
@@ -81,6 +100,9 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset;
 }
 
+/* ================================
+   Boutons
+================================ */
 
 .btn {
   font-size: 1rem;
@@ -153,6 +175,9 @@ li .btn {
   margin-top: 0.5rem;
 }
 
+/* ================================
+   Section Adresse
+================================ */
 
 .section-title {
   margin-top: 0.5rem;
@@ -169,19 +194,23 @@ li .btn {
   background: #fafafa;
   padding: 1rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
 
 .address-section label {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
 }
 
 .address-section .section-title {
-  margin-bottom: 0.8rem;
-  font-size: 1.1rem;
+  margin-bottom: 12px;
+  font-size: 18px;
   color: #111;
 }
+
+
+
 
 
 

@@ -76,31 +76,35 @@ export default function CreateEmployee() {
       <h2>Create Employee</h2>
       <form onSubmit={handleSubmit}>
         {/* Identité */}
-        <label htmlFor="firstName">First name</label>
-        <input
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />{" "}
-        <label htmlFor="lastName">Last name</label>
-        <input
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
+        <div className="form-identity">
+          <label htmlFor="firstName">First name</label>
+          <input
+            id="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <label htmlFor="lastName">Last name</label>
+          <input
+            id="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </div>
         {/* Dates */}
-        <DateInput
-          label="Date of Birth"
-          value={dateOfBirth}
-          onChange={setDateOfBirth}
-        />
-        <DateInput
-          label="Start Date"
-          value={startDate}
-          onChange={setStartDate}
-        />
+        <div className="form-date">
+          <DateInput
+            label="Date of Birth"
+            value={dateOfBirth}
+            onChange={setDateOfBirth}
+          />
+          <DateInput
+            label="Start Date"
+            value={startDate}
+            onChange={setStartDate}
+          />
+        </div>
         {/* Adresse */}
         <div className="address-section">
           <h3 className="section-title">Address</h3>
@@ -159,7 +163,7 @@ export default function CreateEmployee() {
         onClose={() => setShowModal(false)}
         title="Employee created!"
         className=""
-        animation="zoom"
+        animation="slide-up"
       >
         <p>Your employee has been added successfully.</p>
       </Modal>

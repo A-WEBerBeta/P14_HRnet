@@ -4,6 +4,7 @@
 .modal-overlay {
   --overlay-bg: rgba(0, 0, 0, 0.5);
   --modal-bg: #fff;
+  --modal-title : #5a6f07;
   --modal-fg: #222;
   --modal-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   --modal-radius: 8px;
@@ -103,10 +104,11 @@
    Titre et contenu
 ================================ */
 .modal-title {
+  display: flex;
   margin: 0 2rem 0.5rem 0;
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--modal-fg);
+  color: var(--modal-title);
 }
 
 .modal-content {
@@ -120,7 +122,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -128,22 +130,28 @@
   }
 }
 @keyframes zoomIn {
-  from {
+  0% {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.85);
   }
-  to {
+  60% {
     opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
     transform: scale(1);
   }
 }
 @keyframes slideUpIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(40px);
   }
-  to {
+  70% {
     opacity: 1;
+    transform: translateY(-4px);
+  }
+  100% {
     transform: translateY(0);
   }
 }
@@ -152,7 +160,7 @@
 .modal-overlay[data-animation="fade"],
 .modal-overlay[data-animation="zoom"],
 .modal-overlay[data-animation="slide-up"] {
-  animation: fadeIn 180ms ease-out;
+  animation: fadeIn 250ms ease-out;
 }
 
 /* Container selon l’option choisie */
@@ -160,10 +168,10 @@
   animation: fadeIn 400ms ease-out;
 }
 .modal-container[data-animation="zoom"] {
-  animation: zoomIn 400ms ease-out;
+  animation: zoomIn 450ms ease-out;
 }
 .modal-container[data-animation="slide-up"] {
-  animation: slideUpIn 400ms ease-out;
+  animation: slideUpIn 500ms ease-out;
 }
 
 /* Pas d’animation */

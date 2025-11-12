@@ -2,7 +2,7 @@
   --select-bg: #fff;
   --select-fg: #222;
   --select-border: #ccc;
-  --select-border-hover: #888;
+  --select-border-hover: #161616;
   --select-option-hover : #5a6f07;
   --select-accent: #94ad1857;
   --select-arrow: #666;
@@ -25,14 +25,14 @@
   top: 50%;
   width: 10px;
   height: 10px;
-  transform: translateY(-75%) rotate(45deg);
+  transform: translateY(-110%) rotate(45deg);
   border-right: 2px solid var(--select-arrow);
   border-bottom: 2px solid var(--select-arrow);
   transition: transform 200ms ease;
 }
 
 .select-box[data-open="true"]::after {
-  transform: translateY(-25%) rotate(225deg);
+  transform: translateY(-55%) rotate(225deg);
 }
 
 .select {

@@ -4,7 +4,7 @@ import EmployeeList from "./pages/EmployeeList";
 
 function App() {
   return (
-    <div>
+    <>
       <nav>
         <Link to="/create">Create Employee</Link>
         <Link to="/employees">Employee List</Link>
@@ -15,7 +15,7 @@ function App() {
         <Route path="/create" element={<CreateEmployee />} />
         <Route path="/employees" element={<EmployeeList />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
