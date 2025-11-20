@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import DateInput from "../components/DateInput";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
-import Select from "../components/Select";
+import SelectCustom from "../components/SelectCustom";
 import { US_STATES_OPTIONS } from "../data/usStates";
 import { addEmployee } from "../store/employeesSlice";
+import { formatDate } from "../utils/dateFormatter";
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
@@ -41,13 +42,17 @@ export default function CreateEmployee() {
     }
 
     const id = Date.now().toString();
+
+    const dobFormatted = formatDate(dob);
+    const sdFormatted = formatDate(sd);
+
     dispatch(
       addEmployee({
         id,
         firstName: f,
         lastName: l,
-        dateOfBirth: dob,
-        startDate: sd,
+        dateOfBirth: dobFormatted,
+        startDate: sdFormatted,
         street,
         city,
         state,
@@ -120,7 +125,7 @@ export default function CreateEmployee() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
-          <Select
+          <SelectCustom
             label="State"
             id="state"
             value={state}
@@ -138,7 +143,7 @@ export default function CreateEmployee() {
           />
         </div>
         {/* Department */}
-        <Select
+        <SelectCustom
           label="Department"
           id="department"
           value={department}

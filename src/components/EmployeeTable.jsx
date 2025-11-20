@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { DataGrid } from "@mui/x-data-grid";
+import { formatDate } from "../utils/dateFormatter";
 
 const HR_GREEN_LIGHT = "#94ad1857";
 const HR_GREEN_DARK = "#5a6f07";
@@ -37,6 +38,9 @@ export default function EmployeeTable({ rows }) {
       flex: 1,
       type: "date",
       valueGetter: (value) => (value ? new Date(value) : null),
+      valueFormatter: (params) => {
+        formatDate(params.value);
+      },
     },
     { field: "department", headerName: "Department", flex: 1 },
     {
@@ -45,6 +49,9 @@ export default function EmployeeTable({ rows }) {
       flex: 1,
       type: "date",
       valueGetter: (value) => (value ? new Date(value) : null),
+      valueFormatter: (params) => {
+        formatDate(params.value);
+      },
     },
     { field: "street", headerName: "Street", flex: 1 },
     { field: "city", headerName: "City", flex: 1 },
