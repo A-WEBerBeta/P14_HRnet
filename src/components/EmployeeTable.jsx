@@ -36,8 +36,8 @@ export default function EmployeeTable({ rows }) {
       field: "startDate",
       headerName: "Start Date",
       flex: 1,
-      type: "date",
-      valueGetter: (value) => (value ? new Date(value) : null),
+      // type: "date",
+      // valueGetter: (value) => (value ? new Date(value) : null),
       valueFormatter: (params) => {
         formatDate(params.value);
       },
@@ -47,8 +47,8 @@ export default function EmployeeTable({ rows }) {
       field: "dateOfBirth",
       headerName: "Date of Birth",
       flex: 1,
-      type: "date",
-      valueGetter: (value) => (value ? new Date(value) : null),
+      // type: "date",
+      // valueGetter: (value) => (value ? new Date(value) : null),
       valueFormatter: (params) => {
         formatDate(params.value);
       },
