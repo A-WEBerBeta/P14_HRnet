@@ -1,9 +1,8 @@
+import Modal from "@aweb1112/hrnet-modal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import DateInput from "../components/DateInput";
 import Footer from "../components/Footer";
-// import Modal from "../components/Modal";
-import Modal from "hrnet-modal";
 import SelectCustom from "../components/SelectCustom";
 import { US_STATES_OPTIONS } from "../data/usStates";
 import { addEmployee } from "../store/employeesSlice";

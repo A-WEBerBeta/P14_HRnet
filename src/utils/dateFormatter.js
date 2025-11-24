@@ -15,3 +15,11 @@ export const formatDate = (value) => {
     .reverse()
     .join("-");
 };
+
+export const formatYMDToMDY = (dateStr) => {
+  if (!dateStr) return "";
+
+  const dateSplitted = dateStr.split("-");
+  if (dateSplitted.length !== 3) return "Invalid date.";
+  return `${dateSplitted[1]}/${dateSplitted[2]}/${dateSplitted[0]}`;
+};

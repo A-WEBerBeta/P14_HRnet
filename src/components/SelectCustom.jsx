@@ -151,8 +151,6 @@ export default function Select({
     }
   };
 
-  console.log("highlightedIndex =", highlightedIndex);
-
   return (
     <div className={`select-root ${className}`} ref={rootRef}>
       {label && <label htmlFor={id}>{label}</label>}
