@@ -12,6 +12,16 @@ import "./index.css";
 import { store } from "./store/index.js";
 import hrTheme from "./theme.js";
 
+/**
+ * Apllication entry point
+ *
+ * Wraps the entire app with:
+ * - React StrictMode (dev warnings)
+ * - MUI theme provider
+ * - MUI date localization (date-fns)
+ * - Redux store provider
+ * - React Router navigation context
+ */
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={hrTheme}>

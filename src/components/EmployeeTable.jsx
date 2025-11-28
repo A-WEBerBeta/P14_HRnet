@@ -1,7 +1,20 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { formatYMDToMDY } from "../utils/dateFormatter";
 
+/**
+ * EmployeeTable
+ *
+ * Displays the list of employees using MUI's DataGrid.
+ * Accepts an array of employee objects as `rows`.
+ *
+ * Handles:
+ * - Column definition
+ * - Date formatting for display
+ * - Pagination defaults
+ * - Quick filter search bar
+ */
 export default function EmployeeTable({ rows }) {
+  // Table columns definition
   const columns = [
     { field: "firstName", headerName: "First Name", flex: 1 },
     { field: "lastName", headerName: "Last Name", flex: 1 },
@@ -9,6 +22,8 @@ export default function EmployeeTable({ rows }) {
       field: "startDate",
       headerName: "Start Date",
       flex: 1,
+
+      // Format stored "YYYY-MM-DD" into "MM/DD/YYYY"
       valueFormatter: (params) => formatYMDToMDY(params),
     },
     { field: "department", headerName: "Department", flex: 1 },

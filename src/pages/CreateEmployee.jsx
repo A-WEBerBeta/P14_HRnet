@@ -10,15 +10,17 @@ import { formatDate } from "../utils/dateFormatter";
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
+
+  // Local UI states
   const [showModal, setShowModal] = useState(false);
 
-  // Champs
+  // Form fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [startDate, setStartDate] = useState("");
 
-  // Bloc Adresse
+  // Address block
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -26,8 +28,17 @@ export default function CreateEmployee() {
 
   const [department, setDepartment] = useState("");
 
+  // Error handling for basic validation
   const [error, setError] = useState("");
 
+  /**
+   * Handle form submission:
+   * - Validate required fields
+   * - Format dates
+   * - Dispatch employees to Redux
+   * - Reset form
+   * - Open confirmation modal
+   */
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -36,16 +47,20 @@ export default function CreateEmployee() {
     const dob = dateOfBirth;
     const sd = startDate;
 
+    // Minimal validation (only names required)
     if (!f || !l) {
       setError("Both first and last names are required.");
       return;
     }
 
+    // Unique ID for the employee
     const id = Date.now().toString();
 
+    // Format dates to match table format
     const dobFormatted = formatDate(dob);
     const sdFormatted = formatDate(sd);
 
+    // Store employee in Redux
     dispatch(
       addEmployee({
         id,
@@ -60,9 +75,11 @@ export default function CreateEmployee() {
         department,
       })
     );
+
+    // Open confirmation modal
     setShowModal(true);
 
-    // Reset
+    // Reset form
     setFirstName("");
     setLastName("");
     setDateOfBirth("");
@@ -79,8 +96,10 @@ export default function CreateEmployee() {
     <div className="create-container">
       <h1>HRnet</h1>
       <h2>Create Employee</h2>
+
+      {/* --- Employee creation form --- */}
       <form onSubmit={handleSubmit}>
-        {/* Identité */}
+        {/* Identity fields */}
         <div className="form-identity">
           <label htmlFor="firstName">First name</label>
           <input
@@ -97,6 +116,7 @@ export default function CreateEmployee() {
             required
           />
         </div>
+
         {/* Dates */}
         <div className="form-date">
           <DateInput
@@ -110,7 +130,8 @@ export default function CreateEmployee() {
             onChange={setStartDate}
           />
         </div>
-        {/* Adresse */}
+
+        {/* Address section */}
         <div className="address-section">
           <h3 className="section-title">Address</h3>
           <label htmlFor="street">Street</label>
@@ -142,7 +163,8 @@ export default function CreateEmployee() {
             onChange={(e) => setZipCode(e.target.value)}
           />
         </div>
-        {/* Department */}
+
+        {/* Department selection */}
         <SelectCustom
           label="Department"
           id="department"
@@ -163,6 +185,8 @@ export default function CreateEmployee() {
           Add employee
         </button>
       </form>
+
+      {/* Confirmation modal after creation  */}
       <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}

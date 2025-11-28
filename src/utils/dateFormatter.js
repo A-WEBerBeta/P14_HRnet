@@ -1,3 +1,11 @@
+/**
+ * Convert a date value into a YYYY-MM-DD string.
+ *
+ * Steps:
+ * - Create a JS Date object from the input
+ * - Format it as US locale (MM/DD/YYYY)
+ * - Rearrange to YYYY-MM-DD
+ */
 export const formatDate = (value) => {
   if (!value) return "";
 
@@ -16,6 +24,10 @@ export const formatDate = (value) => {
     .join("-");
 };
 
+/**
+ * Convert a YYYY-MM-DD string to MM/DD/YYYY.
+ * Used for displaying stored dates back into date pickers or UI components.
+ */
 export const formatYMDToMDY = (dateStr) => {
   if (!dateStr) return "";
 

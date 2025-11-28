@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import "./SelectCustom.css";
 
+/**
+ * Custom Select component (accessible & keyboard-friendly)
+ *
+ * Features:
+ * - Click to open/close
+ * - Keyboard navigation (↑ ↓ Enter Escape)
+ * - Highlight & scroll-to option
+ * - Click outside to close
+ * - Accepts array of strings OR objects { label, value }
+ */
 export default function Select({
   label,
   id,
@@ -12,28 +22,39 @@ export default function Select({
   disabled = false,
   name,
 }) {
+  // Control menu open state
   const [open, setOpen] = useState(false);
+
+  // Index of the option currently highlighted for keyboard navigation
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
+  // Refs for click-outside & scrolling to highlighted option
   const rootRef = useRef(null);
   const optionsRef = useRef([]);
 
+  /**
+   * Normalized options:
+   * - Accept strings -> convert to { label, value }
+   * - Accept objects -> use as is
+   */
   const normalizedOptions = options.map((opt) => {
-    // Si objet label + value, on garde tel quel
     if (typeof opt === "object") {
       return opt;
     }
-    // Si string -> on crée { label, value }
     return { label: opt, value: opt };
   });
 
-  // On récupère l'option correspondant à la value actuelle
+  // Currently selected option object
   const selected = normalizedOptions.find((opt) => opt.value === value);
 
-  // Et on affiche le texte
+  // Label shown in the button (selected label or placeholder)
   const labelToShow = selected ? selected.label : placeholder;
 
-  // Quand on clique sur un option
+  /**
+   * When clicking an option:
+   * - Propagate change in format similar to native inputs
+   * - Close menu
+   */
   const handleOptionClick = (optionValue) => {
     onChange?.({
       target: {
@@ -45,7 +66,7 @@ export default function Select({
     setOpen(false);
   };
 
-  // Fermeture au clic en dehors
+  // Close menu when clicking outside the component
   useEffect(() => {
     if (!open) return;
 
@@ -62,7 +83,11 @@ export default function Select({
     };
   }, [open]);
 
-  // Ouverture avec mise en surbrillance de l'option
+  /**
+   * Open menu and auto-highlight:
+   * - Current selected option if it exists
+   * - Otherwise first option
+   */
   const openMenu = () => {
     setOpen(true);
     const currentIndex = normalizedOptions.findIndex(
@@ -73,6 +98,10 @@ export default function Select({
     );
   };
 
+  /**
+   * When highlightedIndex changes:
+   * - Scroll the corresponding option into view
+   */
   useEffect(() => {
     if (!open) return;
 
@@ -82,6 +111,10 @@ export default function Select({
     }
   }, [highlightedIndex, open]);
 
+  /**
+   * Toggle menu open/close
+   * When opening, set correct highlight index
+   */
   const toggleMenu = () => {
     setOpen((prev) => {
       const next = !prev;
@@ -97,7 +130,13 @@ export default function Select({
     });
   };
 
-  // Gestion clavier
+  /**
+   * Full keyboard accessibility:
+   * - ArrowDown -> open or move highlight down
+   * - ArrowUp -> open or move highlight up
+   * - Enter -> select highlighted option
+   * - Escape -> close
+   */
   const handleKeyDown = (e) => {
     if (disabled) return;
     if (!normalizedOptions.length) return;
@@ -156,6 +195,7 @@ export default function Select({
       {label && <label htmlFor={id}>{label}</label>}
 
       <div className="select-box" data-open={open ? "true" : "false"}>
+        {/* Main button acting as the "input" */}
         <button
           type="button"
           id={id}
@@ -170,6 +210,7 @@ export default function Select({
           </span>
         </button>
 
+        {/* Dropdown menu  */}
         {open && (
           <div className="select-menu">
             <ul className="select-menu-list">

@@ -1,6 +1,12 @@
 import Logo from "../assets/image/logo.png";
 import "./Footer.css";
 
+/**
+ * Footer component
+ *
+ * Displays the HRnet logo and a simple copyright notice.
+ * Styling is handled in Footer.css
+ */
 export default function Footer() {
   return (
     <div className="footer">
