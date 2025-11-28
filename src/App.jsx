@@ -14,13 +14,12 @@ function App() {
   return (
     <>
       <nav>
-        <Link to="/create">Create Employee</Link>
+        <Link to="/">Create Employee</Link>
         <Link to="/employees">Employee List</Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<CreateEmployee />} />
-        <Route path="/create" element={<CreateEmployee />} />
         <Route path="/employees" element={<EmployeeList />} />
       </Routes>
     </>
